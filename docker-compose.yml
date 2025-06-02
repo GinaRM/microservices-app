@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  catalog-service:
+    build:
+      context: ./catalog-service
+    ports:
+      - "8081:8081"
+    networks:
+      - microservices-net
+
+  inventory-service:
+    build:
+      context: ./inventory-service
+    ports:
+      - "8080:8080"
+    networks:
+      - microservices-net
+    depends_on:
+      - catalog-service
+
+networks:
+  microservices-net:
+    driver: bridge
